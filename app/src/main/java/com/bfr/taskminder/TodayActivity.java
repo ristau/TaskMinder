@@ -38,7 +38,6 @@ public class TodayActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         displayDatabaseInfo();
-
     }
 
 
@@ -77,14 +76,20 @@ public class TodayActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 selectedPos = position;
+                int itemID;
 
-                String editNameText;
-                editNameText = items.get(position).getName();
+                boolean isEditing = true;
+                ToDoItem itemToEdit;
+                itemToEdit = items.get(position);
+                itemID = itemToEdit.getId();
+
+//                String editNameText;
+//                editNameText = items.get(position).getName();
 
                 Intent i = new Intent(TodayActivity.this, EditItemActivity.class);
 
-                i.putExtra("nametext", editNameText);
-                i.putExtra("position", position);
+                i.putExtra("isEditing", isEditing);
+                i.putExtra("itemID", itemID);
                 startActivityForResult(i, REQUEST_CODE);
             }
         });
@@ -115,12 +120,7 @@ public class TodayActivity extends AppCompatActivity {
         String[] selectionArgs = { itemName };
         db.delete(ItemEntry.TABLE_NAME, selection, selectionArgs);
 
-        Toast.makeText(TodayActivity.this,"Number of rows in database: " + items.size(),Toast.LENGTH_LONG).show();
-
     }
-
-
-
 
     private void displayDatabaseInfo() {
 
@@ -160,6 +160,7 @@ public class TodayActivity extends AppCompatActivity {
         try {
 
             int idColumnIndex = cursor.getColumnIndex(ItemEntry._ID);
+            int categoryColumIndex = cursor.getColumnIndex(ItemEntry.COLUMN_CATEGORY);
             int nameColumnIndex = cursor.getColumnIndex(ItemEntry.COLUMN_NAME);
             int notesColumnIndex = cursor.getColumnIndex(ItemEntry.COLUMN_NOTES);
             int dueDateColumnIndex = cursor.getColumnIndex(ItemEntry.COLUMN_DUEDATE);
@@ -168,13 +169,14 @@ public class TodayActivity extends AppCompatActivity {
 
             while (cursor.moveToNext()) {
                 int currentID = cursor.getInt(idColumnIndex);
+                String currentCategory = cursor.getString(categoryColumIndex);
                 String currentName = cursor.getString(nameColumnIndex);
                 String currentDueDate = cursor.getString(dueDateColumnIndex);
                 String currentNotes = cursor.getString(notesColumnIndex);
                 String currentPriority = cursor.getString(priorityColumnIndex);
                 String currentStatus = cursor.getString(statusColumnIndex);
 
-                items.add(new ToDoItem(category, currentName, currentDueDate, currentNotes, currentPriority, currentStatus));
+                items.add(new ToDoItem(currentID, currentCategory, currentName, currentDueDate, currentNotes, currentPriority, currentStatus));
 
             }
 
@@ -182,8 +184,6 @@ public class TodayActivity extends AppCompatActivity {
             initializeAddItemListener();
             initializeRemoveEntryListener();
             itemsAdapter.notifyDataSetChanged();
-
-            Toast.makeText(TodayActivity.this,"Number of rows in database: " + cursor.getCount(),Toast.LENGTH_LONG).show();
 
         } finally {
             cursor.close();

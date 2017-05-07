@@ -36,7 +36,7 @@
         <item>Not Started</item>
         <item>Kind of Started</item>
         <item>More than Halfway</item>
-        <item>Done!</item>
+        <item>Done</item>
     </string-array>
 
 </resources>

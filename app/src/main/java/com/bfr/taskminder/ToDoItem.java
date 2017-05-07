@@ -10,6 +10,7 @@ import java.sql.Date;
 
 public class ToDoItem {
 
+    private int id;
     private  String category;
     private  String toDoName;
     private String dueDate;
@@ -19,7 +20,8 @@ public class ToDoItem {
 
 
     // constructor
-    public ToDoItem(String itemCategory, String name, String itemDueDate, String itemNotes, String itemPriority, String itemStatus) {
+    public ToDoItem(int _id, String itemCategory, String name, String itemDueDate, String itemNotes, String itemPriority, String itemStatus) {
+        id = _id;
         category=itemCategory;
         toDoName = name;
         dueDate = itemDueDate;
@@ -27,8 +29,11 @@ public class ToDoItem {
         priority = itemPriority;
         status = itemStatus;
 
+
     }
 
+
+    public void setId(int _id) { id = _id; }
 
     public void setCategory(String itemCategory){
         category = itemCategory;
@@ -54,6 +59,8 @@ public class ToDoItem {
         status = itemStatus;
     }
 
+
+    public int getId() { return id; }
 
     public String getCategory(){
         return category;
