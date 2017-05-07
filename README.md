@@ -34,13 +34,13 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/cGAxxIb.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
-
-Describe any challenges encountered while building the app.
+Challenges: 1) I'm completely new to android, so needed to invest a lot of time to familiarize myself with both Java and the platform.
+2) I completed the persistence requirements as outlined, but am currently facing some snags with SQLite, expected to resolve these items shortly. 
 
 ## License
 
