@@ -14,9 +14,9 @@ public class BackBurnerActivity extends AppCompatActivity {
         setContentView(R.layout.todo_list);
 
         ArrayList<ToDoItem> items = new ArrayList<ToDoItem>();
-        items.add(new ToDoItem("BackBurner", "Finish App", "Next week", "Finish coursework", "High"));
-        items.add(new ToDoItem("BackBurnery", "Cook Meal", "Next Month", "Make nutritous food", "Medium"));
-        items.add(new ToDoItem("BackBurner", "Exercise", "Next Year", "Get Moving", "Low"));
+        items.add(new ToDoItem("BackBurner", "Clean Closet", "Next week", "Donate to Goodwill", "High", "Not Started"));
+        items.add(new ToDoItem("BackBurner", "Organize Magazines", "Next Month", "Save favorite articles", "Medium", "Not Started"));
+        items.add(new ToDoItem("BackBurner", "Organize Kitchen", "Next Year", "Clean Cupboards", "Low", "Not Started"));
 
         ToDoAdapter itemsAdapter = new ToDoAdapter(this, items);
 

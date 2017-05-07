@@ -15,15 +15,17 @@ public class ToDoItem {
     private String dueDate;
     private  String notes;
     private  String priority;
+    private String status;
 
 
     // constructor
-    public ToDoItem(String itemCategory, String name, String itemDueDate, String itemNotes, String itemPriority) {
+    public ToDoItem(String itemCategory, String name, String itemDueDate, String itemNotes, String itemPriority, String itemStatus) {
         category=itemCategory;
         toDoName = name;
         dueDate = itemDueDate;
         notes = itemNotes;
         priority = itemPriority;
+        status = itemStatus;
 
     }
 
@@ -48,6 +50,10 @@ public class ToDoItem {
         priority = itemPriority;
     }
 
+    public void setStatus(String itemStatus){
+        status = itemStatus;
+    }
+
 
     public String getCategory(){
         return category;
@@ -68,5 +74,7 @@ public class ToDoItem {
     public String getPriority(){
         return priority;
     }
+
+    public String getStatus() { return status; }
 
 }

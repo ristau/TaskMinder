@@ -31,8 +31,8 @@ public class ItemDbHelper extends SQLiteOpenHelper {
                 + ItemEntry.COLUMN_NAME + " TEXT NOT NULL, "
                 + ItemEntry.COLUMN_DUEDATE + " TEXT, "
                 + ItemEntry.COLUMN_NOTES + " TEXT, "
-                + ItemEntry.COLUMN_PRIORITY + " INTEGER NOT NULL, "
-                + ItemEntry.COLUMN_STATUS + " INTGER NOT NULL);";
+                + ItemEntry.COLUMN_PRIORITY + " TEXT, "
+                + ItemEntry.COLUMN_STATUS + " TEXT);";
 
         db.execSQL(SQL_CREATE_ITEMS_TABLE);
 

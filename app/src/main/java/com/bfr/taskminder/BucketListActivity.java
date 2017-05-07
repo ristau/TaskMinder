@@ -14,9 +14,9 @@ public class BucketListActivity extends AppCompatActivity {
         setContentView(R.layout.todo_list);
 
         ArrayList<ToDoItem> items = new ArrayList<ToDoItem>();
-        items.add(new ToDoItem("BucketList", "Finish App", "Someday", "Finish coursework", "High"));
-        items.add(new ToDoItem("BucketList", "Cook Meal", "One Day", "Make nutritous food", "Medium"));
-        items.add(new ToDoItem("BucketList", "Exercise", "Tomorrow", "Get Moving", "Low"));
+        items.add(new ToDoItem("BucketList", "Sail Around the World", "Someday", "Start in Carribbean", "High", "Not Started"));
+        items.add(new ToDoItem("BucketList", "Travel to Iceland", "One Day", "Visit Hot Springs", "Medium", "Not Started"));
+        items.add(new ToDoItem("BucketList", "Drive Cross Country", "Tomorrow", "Get Moving", "Low", "Not Started"));
 
         ToDoAdapter itemsAdapter = new ToDoAdapter(this, items);
 

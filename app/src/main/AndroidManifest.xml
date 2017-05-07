@@ -28,7 +28,9 @@
         <activity
             android:name=".BackBurnerActivity"
             android:label="@string/category_backBurner"></activity>
-        <activity android:name=".EditItemActivity"></activity>
+        <activity android:name=".EditItemActivity"
+            android:label="Add/Edit Item">
+        </activity>
     </application>
 
 </manifest>

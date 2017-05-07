@@ -34,6 +34,10 @@ public class EditItemActivity extends AppCompatActivity {
     TextView dueDate;
     Button btn;
     int year_x, month_x, day_x;
+    String category;
+    String status;
+    String priority;
+    EditText notes;
 
     private ItemDbHelper mDbHelper;
 
@@ -65,13 +69,17 @@ public class EditItemActivity extends AppCompatActivity {
         String textToEdit = getIntent().getStringExtra("nametext");
         int arrPosition = getIntent().getIntExtra("position", 0);
 
-        String newStr = textToEdit + " at position " + arrPosition;
+        String newStr = textToEdit;
+      //  String newStr = textToEdit + " at position " + arrPosition;
         updateName.setText(newStr);
+
+        category = getIntent().getStringExtra("category");
 
         int textLength = updateName.getText().length();
         updateName.setSelection(textLength, textLength);
 
         dueDate = (TextView) findViewById(R.id.tvSelectedDueDate);
+        notes = (EditText) findViewById(R.id.tvNotes);
 
         // Priority Spinnter
         prioritySpinner = (Spinner) findViewById(R.id.spPriority);
@@ -81,6 +89,7 @@ public class EditItemActivity extends AppCompatActivity {
         prioritySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                priority = (String) parent.getItemAtPosition(position);
                // Toast.makeText(getBaseContext(),parent.getItemAtPosition(position) + " selected", Toast.LENGTH_SHORT).show();
             }
 
@@ -90,7 +99,7 @@ public class EditItemActivity extends AppCompatActivity {
             }
         });
 
-        // Statis Spinnter
+        // Statis Spinner
         statusSpinner = (Spinner) findViewById(R.id.spStatus);
         statusAdapter = ArrayAdapter.createFromResource(this,R.array.status_values,android.R.layout.simple_spinner_item);
         statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -98,6 +107,8 @@ public class EditItemActivity extends AppCompatActivity {
         statusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                status = (String) parent.getItemAtPosition(position);
                 //Toast.makeText(getBaseContext(),parent.getItemAtPosition(position) + " selected", Toast.LENGTH_SHORT).show();
             }
 
@@ -139,7 +150,7 @@ public class EditItemActivity extends AppCompatActivity {
             year_x = year;
             month_x = monthOfYear + 1;
             day_x = dayOfMonth;
-            Toast.makeText(EditItemActivity.this,year_x + "/" + month_x + "/" + day_x,Toast.LENGTH_LONG).show();
+            //Toast.makeText(EditItemActivity.this,year_x + "/" + month_x + "/" + day_x,Toast.LENGTH_LONG).show();
             String selectedDate =  month_x + "/" + day_x + "/" + year_x;
             dueDate.setText(selectedDate);
         }
@@ -148,9 +159,8 @@ public class EditItemActivity extends AppCompatActivity {
     public void onSubmit(View view) {
 
             insertItem();
-             displayDatabaseInfo();
 
-        Intent newData = new Intent();
+            Intent newData = new Intent();
 
             String newText = updateName.getText().toString();
 
@@ -162,37 +172,39 @@ public class EditItemActivity extends AppCompatActivity {
     }
 
     private void insertItem() {
+
+        String categoryString = category;
+        String nameString = updateName.getText().toString().trim();
+        String dateString = dueDate.getText().toString().trim();
+        String notesString = notes.getText().toString().trim();
+        String statusString = status;
+        String priorityString = priority;
+
+        ItemDbHelper mDbHelper = new ItemDbHelper(this);
+
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
 
-        values.put(ItemEntry.COLUMN_CATEGORY, "Today");
-        values.put(ItemEntry.COLUMN_NAME, "Finish Homework");
-        values.put(ItemEntry.COLUMN_DUEDATE, "later");
-        values.put(ItemEntry.COLUMN_NOTES, "Buy new notebook");
-        values.put(ItemEntry.COLUMN_PRIORITY, "High");
-        values.put(ItemEntry.COLUMN_STATUS, "Done");
+        values.put(ItemEntry.COLUMN_CATEGORY, categoryString);
+        values.put(ItemEntry.COLUMN_NAME, nameString);
+        values.put(ItemEntry.COLUMN_DUEDATE, dateString);
+        values.put(ItemEntry.COLUMN_NOTES, notesString);
+        values.put(ItemEntry.COLUMN_PRIORITY, statusString);
+        values.put(ItemEntry.COLUMN_STATUS, priorityString);
 
         long newRowId = db.insert(ItemEntry.TABLE_NAME, null, values);
 
         Log.v("EditItemActivity", "New row ID " + newRowId);
 
-    }
-
-
-    private void displayDatabaseInfo() {
-
-        ItemDbHelper mDbHelper = new ItemDbHelper(this);
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + ItemContract.ItemEntry.TABLE_NAME, null);
-        try {
-            TextView displayView = (TextView) findViewById(R.id.text_view_item);
-            displayView.setText("Number of rows in database: " + cursor.getCount());
-        } finally {
-            cursor.close();
+        if(newRowId == -1) {
+            Toast.makeText(this, "Error with saving item", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Item saved with row ID: " + newRowId, Toast.LENGTH_SHORT).show();
         }
 
     }
+
 
 
 

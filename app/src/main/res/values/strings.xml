@@ -12,6 +12,7 @@
 
     <!-- Category name for the vocabulary words for back burner [CHAR LIMIT=20] -->
     <string name="category_backBurner">Back Burner</string>
+
     <string name="toDoName">todo_name</string>
     <string name="todo_name">ToDo Name</string>
     <string name="due_date">Due Date</string>
