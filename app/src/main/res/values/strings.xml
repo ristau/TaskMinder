@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">TaskMinder</string>
+
+    <!-- Category name for today [CHAR LIMIT=20] -->
+    <string name="category_today">Today</string>
+
+    <!-- Category name for the vocabulary words for this week [CHAR LIMIT=20] -->
+    <string name="category_thisWeek">This Week</string>
+
+    <!-- Category name for the vocabulary words for bucket list [CHAR LIMIT=20] -->
+    <string name="category_bucketList">Bucket List</string>
+
+    <!-- Category name for the vocabulary words for back burner [CHAR LIMIT=20] -->
+    <string name="category_backBurner">Back Burner</string>
+    <string name="toDoName">todo_name</string>
+    <string name="todo_name">ToDo Name</string>
+    <string name="due_date">Due Date</string>
+    <string name="priority">Priority</string>
+    <string name="item_name">Item Name</string>
+    <string name="notes">Notes</string>
+    <string name="select_date">Select Date</string>
+    <string name="save_item">Save</string>
+    <string name="select_priority">Select Priority</string>
+    <string name="select_status">Select Status</string>
+    <string name="enter_notes">Enter notes here</string>
+
+    <string-array name="priority_values">
+        <item>High</item>
+        <item>Medium</item>
+        <item>Low</item>
+    </string-array>
+
+    <string-array name="status_values">
+        <item>Not Started</item>
+        <item>Kind of Started</item>
+        <item>More than Halfway</item>
+        <item>Done!</item>
+    </string-array>
+
+</resources>
