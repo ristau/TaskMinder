@@ -2,9 +2,14 @@ package com.bfr.taskminder;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.ClipData;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,6 +19,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bfr.taskminder.data.ItemContract;
+import com.bfr.taskminder.data.ItemContract.ItemEntry;
+import com.bfr.taskminder.data.ItemDbHelper;
 
 import org.w3c.dom.Text;
 
@@ -26,6 +35,8 @@ public class EditItemActivity extends AppCompatActivity {
     Button btn;
     int year_x, month_x, day_x;
 
+    private ItemDbHelper mDbHelper;
+
     static final int DIALOG_ID = 0;
 
     // Spinners
@@ -35,12 +46,14 @@ public class EditItemActivity extends AppCompatActivity {
     Spinner statusSpinner;
     ArrayAdapter<CharSequence> statusAdapter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_item);
         showDialogOnButtonClick();
+
+        mDbHelper = new ItemDbHelper(this);
+
 
         final Calendar cal = Calendar.getInstance();
         year_x = cal.get(Calendar.YEAR);
@@ -94,6 +107,7 @@ public class EditItemActivity extends AppCompatActivity {
             }
         });
 
+        ItemDbHelper mDBHelper = new ItemDbHelper(this);
 
     }
 
@@ -133,7 +147,10 @@ public class EditItemActivity extends AppCompatActivity {
 
     public void onSubmit(View view) {
 
-            Intent newData = new Intent();
+            insertItem();
+             displayDatabaseInfo();
+
+        Intent newData = new Intent();
 
             String newText = updateName.getText().toString();
 
@@ -143,4 +160,41 @@ public class EditItemActivity extends AppCompatActivity {
             setResult(RESULT_OK, newData);
             finish();
     }
+
+    private void insertItem() {
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(ItemEntry.COLUMN_CATEGORY, "Today");
+        values.put(ItemEntry.COLUMN_NAME, "Finish Homework");
+        values.put(ItemEntry.COLUMN_DUEDATE, "later");
+        values.put(ItemEntry.COLUMN_NOTES, "Buy new notebook");
+        values.put(ItemEntry.COLUMN_PRIORITY, "High");
+        values.put(ItemEntry.COLUMN_STATUS, "Done");
+
+        long newRowId = db.insert(ItemEntry.TABLE_NAME, null, values);
+
+        Log.v("EditItemActivity", "New row ID " + newRowId);
+
+    }
+
+
+    private void displayDatabaseInfo() {
+
+        ItemDbHelper mDbHelper = new ItemDbHelper(this);
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + ItemContract.ItemEntry.TABLE_NAME, null);
+        try {
+            TextView displayView = (TextView) findViewById(R.id.text_view_item);
+            displayView.setText("Number of rows in database: " + cursor.getCount());
+        } finally {
+            cursor.close();
+        }
+
+    }
+
+
+
+
 }

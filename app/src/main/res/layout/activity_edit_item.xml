@@ -141,4 +141,13 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginEnd="16dp" />
 
+    <TextView
+        android:id="@+id/text_view_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:text="TextView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:layout_editor_absoluteY="4dp" />
+
 </android.support.constraint.ConstraintLayout>

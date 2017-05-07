@@ -23,6 +23,7 @@
     <string name="select_priority">Select Priority</string>
     <string name="select_status">Select Status</string>
     <string name="enter_notes">Enter notes here</string>
+    <string name="add_item">Add Item</string>
 
     <string-array name="priority_values">
         <item>High</item>
