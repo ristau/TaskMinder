@@ -22,9 +22,13 @@ The following **optional** features are implemented:
 * [ ] Use a [DialogFragment](http://guides.codepath.com/android/Using-DialogFragment) instead of new Activity for editing items
 * [X] Add support for selecting the priority of each todo item (and display in listview item)
 * [X] Tweak the style improving the UI / UX, play with colors, images or backgrounds
+* [X] Added styling to app theme, including Material Desing color schema with dark background 
 
 The following **additional** features are implemented:
 
+* [X] Implemented calendar / datepicker for date
+* [X] Impelemented spinner for selecting status
+* [X] Impelemented spinner for selecting priority 
 * [X] Added categories with separate views by category
 * [X] Added cover view so user can select which category to view
 * [X] Added support for selecting status 
