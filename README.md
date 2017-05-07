@@ -44,7 +44,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 Challenges: 1) I'm completely new to android, so needed to invest a lot of time to familiarize myself with both Java and the platform.
-2) I completed the persistence requirements as outlined, but am currently facing some snags with SQLite, expected to resolve these items shortly. 
+2) I'm also new to SQLite and it took me a while to work out a number of bugs. 
 
 ## License
 
